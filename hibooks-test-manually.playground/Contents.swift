@@ -13,16 +13,19 @@ let map: [[String]] = [["8"],
                         ["5", "7", "0", "9"],
                         ["6", "8"]]
 
+var builtNumbers: [String] = []
+var count = 0
+
 // recursive method to take starting digit and n lenght that will return the final number with desired lenght
 
-func hibooksWith(_ number: String, n: Int) -> String {
+func hibooksWithIntern(_ number: String, n: Int) -> String {
     
     let finalNumber = number
     
     func verify(_ lastNumber: Int) -> String {
         if let last = finalNumber.last, String(last) == String(lastNumber) {
             for i in map[lastNumber] {
-                hibooksWith(finalNumber + i, n: n)
+                hibooksWithIntern(finalNumber + i, n: n)
             }
             return finalNumber
         }
@@ -30,7 +33,8 @@ func hibooksWith(_ number: String, n: Int) -> String {
     }
     
     if finalNumber.count == n {
-        print(finalNumber)
+        builtNumbers.append(finalNumber)
+        count += 1
         return finalNumber
     }
     
@@ -39,6 +43,14 @@ func hibooksWith(_ number: String, n: Int) -> String {
     }
     
     return finalNumber
+}
+
+func hibooksWith(_ number: String, n: Int) {
+    hibooksWithIntern(number, n: n)
+    
+    if count == builtNumbers.count {
+        print(builtNumbers)
+    }
 }
 
 // call hibooks with starting digit and lenght
